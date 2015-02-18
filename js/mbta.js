@@ -1,8 +1,8 @@
-/* 'use strict'; is a javascript statement to declare we're using strict mode, 
+/* 'use strict'; is a javascript statement to declare we're using strict mode,
 which means you need semi-colons where they should go */
 'use strict';
 
-/* this is an anonymous function that will run as soon as the file is loaded and 
+/*  this is an anonymous function that will run as soon as the file is loaded and
 the javascript is compiled */
 (function(){
 
@@ -19,7 +19,8 @@ the javascript is compiled */
     greenline: ["North Station","Haymarket","Government Center","Park Street","Boylston","Arlington","Copley","Hynes Convention Center", "Kenmore"]
   };
 
-  // when a user clicks the submit button, the form's event listeners call this code.
+  /*  when a user clicks the submit button, the form's event listeners call this code.
+  Check the last function in this file for the event listeners */
   var processForm = function(e) {
     // we're preventing default form submission here
     if (e.preventDefault) e.preventDefault();
@@ -46,42 +47,45 @@ the javascript is compiled */
   };
 
   /*  getStations is the logic of the application. this function is taking the parameters
-  passed by forEach (element,index,array) and doing something with them*/
+  passed by forEach (element,index,array) and doing something with them   */
   var getStations = function(element,index,array){
     // if the origin and destination are on the same line
     if(array.indexOf(origin) !== -1 && array.indexOf(dest) !== -1 ){
-      // call the function for calculating the distance
+      // call the function for calculating the distance on one line
       getDistanceFromSameLine(origin,dest,array);
     } else if(element === origin){
+      // call the function to calculate the distance from origin
       getDistanceFromOrigin(element,index,array);
     } else if(element === dest) {
+      // call function to calculate the distance from destination
       getDistanceFromDest(element,index,array);
     }
   };
 
+  /*  fuction to calculate distance between stations on the same line  */
   var getDistanceFromSameLine = function(origin,destination,array){
     var distance = Math.abs(array.indexOf(origin) - array.indexOf(destination));
+    // get the html element to manipulate
     var output = document.getElementById("origin-results");
+    // alter the html of the output element to show the distance.
     output.innerHTML = "<p>Get on @ " + origin + " and go " + distance + " stops.</p>";
   };
 
+  /*  distance from origin  */
   var getDistanceFromOrigin = function(element,index,array){
     var distance = Math.abs(array.indexOf("Park Street") - array.indexOf(element));
     var output = document.getElementById("origin-results");
     output.innerHTML = "<p>Get on @ " + origin + " and go " + distance + " stops.</p>";
   };
 
+  /*  distance from destination  */
   var getDistanceFromDest = function(element,index,array){
     var distance = Math.abs(array.indexOf("Park Street") - array.indexOf(element));
     var output = document.getElementById("dest-results");
     output.innerHTML = "<p>Change @ Park Street and go for " + distance + " stops.</p>";
   };
 
-  var totalDistance = function(){
-    debugger;
-  };
-
-  // get the form element, and add event listeners to it so we can prevent default submission
+  /*  get the form element, and add event listeners to it so we can prevent default submission  */
   form = document.getElementById('mbta');
   if (form.attachEvent) {
     form.attachEvent("submit", processForm);
